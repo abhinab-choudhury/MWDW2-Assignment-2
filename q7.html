@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoplay Video with Loop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        /* Video styling with CSS instead of width attribute */
+        .video-wrapper {
+            position: relative;
+            margin: 20px auto;
+            width: 80%;  /* Responsive sizing */
+            max-width: 800px;
+        }
+        
+        video {
+            width: 100%;
+            display: block;
+            border-radius: 5px;
+        }
+        
+        /* Styling for browsers that don't support video */
+        .no-video-support {
+            padding: 15px;
+            background-color: #ffe6e6;
+            border-left: 4px solid #ff5252;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nature Video Showcase</h1>
+        
+        <div class="video-wrapper">
+            <!-- Video with autoplay, loop, and muted attributes -->
+            <video autoplay loop muted>
+                <source src="./static/sample-video.mp4" type="video/mp4">
+                <source src="./static/sample-video.webm" type="video/webm">
+                
+                <!-- Message for browsers that don't support the video element -->
+                <div class="no-video-support">
+                    <p>Unfortunately, your browser does not support HTML5 video.</p>
+                    <p>Please upgrade to a modern browser such as the latest version of Chrome, Firefox, Safari, or Edge to view this content.</p>
+                </div>
+            </video>
+        </div>
+        
+        <div class="description">
+            <h2>About This Video</h2>
+            <p>
+                This beautiful nature footage automatically plays when the page loads and loops continuously.
+                The video is muted by default to provide a better user experience. The video size is controlled
+                using CSS to ensure a responsive layout that works on various screen sizes.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Custom Audio Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .audio-container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hide default audio controls */
+        audio {
+            display: none;
+        }
+        
+        .custom-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        
+        #playPauseBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #muteBtn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Audio Player</h1>
+    
+    <div class="audio-container">
+        <!-- Audio element without controls -->
+        <audio id="myAudio">
+            <source src="./static/audio-file.mp3" type="audio/mpeg">
+            <source src="./static/audio-file.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <!-- Custom controls -->
+        <div class="custom-controls">
+            <button id="playPauseBtn">Play</button>
+            <button id="muteBtn">Mute</button>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const audio = document.getElementById('myAudio');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        
+        // Ensure audio doesn't autoplay on page load
+        audio.autoplay = false;
+        
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = 'Pause';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = 'Play';
+            }
+        });
+        
+        // Mute/Unmute functionality
+        muteBtn.addEventListener('click', function() {
+            audio.muted = !audio.muted;
+            
+            if (audio.muted) {
+                muteBtn.textContent = 'Unmute';
+                muteBtn.style.backgroundColor = '#2196F3'; // Change to blue when muted
+            } else {
+                muteBtn.textContent = 'Mute';
+                muteBtn.style.backgroundColor = '#f44336'; // Back to red when unmuted
+            }
+        });
+        
+        // Update button state if audio ends
+        audio.addEventListener('ended', function() {
+            playPauseBtn.textContent = 'Play';
+        });
+    </script>
+</body>
+</html>

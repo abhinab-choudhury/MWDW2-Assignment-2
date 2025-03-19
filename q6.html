@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Video Player with Preload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .video-container {
+            margin-bottom: 20px;
+        }
+        
+        video {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-panel {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        h3 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Player with Preload</h1>
+    
+    <div class="video-container">
+        <!-- Video with preload attribute -->
+        <video controls preload="auto" width="100%">
+            <source src="./static/sample-video.mp4" type="video/mp4">
+            <source src="./static/sample-video.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div class="info-panel">
+        <h3>About the Preload Attribute</h3>
+        <p>
+            This video player uses the <code>preload="auto"</code> attribute which tells the browser to 
+            download the video data as soon as the page loads, before the user clicks play. This helps 
+            reduce buffering when the user decides to watch the video.
+        </p>
+        <p>
+            The preload attribute can have three possible values:
+        </p>
+        <ul>
+            <li><strong>auto</strong>: Browser should load the entire video when the page loads</li>
+            <li><strong>metadata</strong>: Browser should load only metadata (dimensions, duration, etc.)</li>
+            <li><strong>none</strong>: Browser should not preload any video data</li>
+        </ul>
+        <p>
+            Note: Some mobile browsers ignore the preload attribute to save bandwidth, and some 
+            browsers may ignore it based on various conditions like network type or user settings.
+        </p>
+    </div>
+</body>
+</html>

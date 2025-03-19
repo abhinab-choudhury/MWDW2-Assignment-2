@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Player Controls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .video-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        /* Style the video */
+        video {
+            width: 100%;
+            display: block;
+            border-radius: 5px;
+        }
+        
+        /* Controls container */
+        .custom-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            gap: 15px;
+        }
+        
+        /* Style the buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        /* Style the progress bar */
+        .progress-container {
+            flex: 1;
+        }
+        
+        #progressBar {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+        }
+        
+        /* Display current time and duration */
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Video Player</h1>
+    
+    <div class="video-container">
+        <!-- Video without default controls -->
+        <video id="myVideo">
+            <source src="./static/sample-video.mp4" type="video/mp4">
+            <source src="./static/sample-video.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Custom controls -->
+        <div class="custom-controls">
+            <button id="playBtn">Play</button>
+            <button id="pauseBtn">Pause</button>
+            
+            <div class="progress-container">
+                <input type="range" id="progressBar" min="0" value="0" step="0.1">
+                
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const video = document.getElementById('myVideo');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        
+        // Format time in minutes and seconds
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        }
+        
+        // Initialize video player once metadata is loaded
+        video.addEventListener('loadedmetadata', function() {
+            progressBar.max = video.duration;
+            durationDisplay.textContent = formatTime(video.duration);
+        });
+        
+        // Update progress bar as video plays
+        video.addEventListener('timeupdate', function() {
+            progressBar.value = video.currentTime;
+            currentTimeDisplay.textContent = formatTime(video.currentTime);
+        });
+        
+        // Play button functionality
+        playBtn.addEventListener('click', function() {
+            video.play();
+        });
+        
+        // Pause button functionality
+        pauseBtn.addEventListener('click', function() {
+            video.pause();
+        });
+        
+        // Set video time when progress bar is changed
+        progressBar.addEventListener('input', function() {
+            video.currentTime = progressBar.value;
+        });
+        
+        // Update button states when video ends
+        video.addEventListener('ended', function() {
+            progressBar.value = 0;
+            currentTimeDisplay.textContent = '0:00';
+        });
+    </script>
+</body>
+</html>

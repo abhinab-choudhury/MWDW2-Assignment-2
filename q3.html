@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Audio Player with Loop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .audio-container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        
+        .no-support {
+            padding: 10px;
+            background-color: #ffecb3;
+            border-left: 4px solid #ffc107;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Player Example</h1>
+    
+    <div class="audio-container">
+        <!-- Audio element with controls, autoplay, and loop attributes -->
+        <audio controls autoplay loop>
+            <source src="./static/audio-file.mp3" type="audio/mpeg">
+            <source src="./static/audio-sample.ogg" type="audio/ogg">
+            
+            <!-- Message for browsers that don't support audio element -->
+            <div class="no-support">
+                Your browser does not support the HTML5 audio element. 
+                Please upgrade to a modern browser to listen to this audio file.
+            </div>
+        </audio>
+        
+        <!-- Brief description of the audio file -->
+        <p class="description">
+            This is a sample audio track that demonstrates the HTML5 audio player capabilities. 
+            The player includes standard controls like play/pause, volume adjustment, and a 
+            timeline scrubber. This audio is set to autoplay when the page loads and will loop 
+            continuously once it reaches the end.
+        </p>
+    </div>
+    
+    <!-- Additional information about the no-support message -->
+    <p>
+        Note: If your browser doesn't support the HTML5 audio element, you'll see a notification 
+        instead of the audio player. Most modern browsers fully support HTML5 audio.
+    </p>
+</body>
+</html>

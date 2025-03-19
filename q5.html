@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Video Player with Poster</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .video-container {
+            margin-bottom: 20px;
+        }
+        
+        video {
+            width: 800px;
+            /* Height will maintain aspect ratio automatically */
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .video-description {
+            margin-top: 15px;
+            line-height: 1.5;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Player Example</h1>
+    
+    <div class="video-container">
+        <!-- Video with controls, muted, specific width, and poster image -->
+        <video 
+            controls 
+            muted
+            width="800" 
+            poster="static/sample-imgae.jpg">
+            
+            <source src="./static/sample-video.mp4" type="video/mp4">
+            <source src="./static/sample-video.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Video description -->
+        <p class="video-description">
+            This sample video demonstrates the HTML5 video capabilities with a custom poster image
+            that displays before playback begins. The video is automatically muted to provide a
+            better user experience and has a fixed width of 800 pixels while maintaining its
+            original aspect ratio. Users can unmute the video and adjust volume using the standard
+            video controls.
+        </p>
+    </div>
+</body>
+</html>

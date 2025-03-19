@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Audio Player with Progress Bar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .audio-player {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hide default audio element */
+        audio {
+            display: none;
+        }
+        
+        .controls {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .play-pause-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .volume-control label {
+            margin-right: 10px;
+        }
+        
+        .progress-container {
+            margin-top: 15px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Audio Player</h1>
+    
+    <div class="audio-player">
+        <!-- Hidden audio element -->
+        <audio id="audioPlayer">
+            <source src="./static/audio-file.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <!-- Custom controls -->
+        <div class="controls">
+            <button id="playPauseBtn" class="play-pause-btn">▶</button>
+            
+            <div class="volume-control">
+                <label for="volume">Volume:</label>
+                <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+            </div>
+        </div>
+        
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <input type="range" id="progressBar" class="progress-bar" min="0" value="0" step="0.01">
+            
+            <div class="time-display">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const audio = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeControl = document.getElementById('volume');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        
+        // Function to format time in minutes and seconds
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        }
+        
+        // Set up audio to play once on page load
+        window.addEventListener('load', function() {
+            audio.play().catch(e => {
+                // Handle autoplay policy restrictions
+                console.log('Autoplay prevented by browser policy:', e);
+            });
+        });
+        
+        // Initialize player when metadata is loaded
+        audio.addEventListener('loadedmetadata', function() {
+            progressBar.max = audio.duration;
+            durationDisplay.textContent = formatTime(audio.duration);
+        });
+        
+        // Update progress bar as audio plays
+        audio.addEventListener('timeupdate', function() {
+            progressBar.value = audio.currentTime;
+            currentTimeDisplay.textContent = formatTime(audio.currentTime);
+        });
+        
+        // Play/Pause button functionality
+        playPauseBtn.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = '⏸';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶';
+            }
+        });
+        
+        // Update audio playback position when progress bar is changed
+        progressBar.addEventListener('input', function() {
+            audio.currentTime = progressBar.value;
+        });
+        
+        // Volume control
+        volumeControl.addEventListener('input', function() {
+            audio.volume = volumeControl.value;
+        });
+        
+        // Update button state when audio ends
+        audio.addEventListener('ended', function() {
+            playPauseBtn.textContent = '▶';
+        });
+        
+        // Update button when playing/pausing
+        audio.addEventListener('play', function() {
+            playPauseBtn.textContent = '⏸';
+        });
+        
+        audio.addEventListener('pause', function() {
+            playPauseBtn.textContent = '▶';
+        });
+    </script>
+</body>
+</html>

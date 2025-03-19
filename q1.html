@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML5 Video Player</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .video-container {
+        margin-bottom: 20px;
+      }
+      
+      video {
+        width: 100%;
+        border-radius: 4px;
+      }
+      
+      .custom-controls {
+        margin-top: 10px;
+      }
+      
+      .volume-control {
+        margin-top: 10px;
+      }
+      
+      label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HTML5 Video Player</h1>
+
+    <div class="video-container">
+      <!-- Video element with controls -->
+      <video id="myVideo" controls>
+        <!-- Add multiple sources for cross-browser compatibility -->
+        <source src="./static/sample-video.mp4" type="video/mp4" />
+        <source src="./static/sample-video.webm" type="video/webm" />Your browser does not support the video tag.
+      </video>
+
+      <!-- Additional volume control slider -->
+      <div class="volume-control">
+        <label for="volume">Volume:</label>
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="1" />
+        <span id="volumeValue">100%</span>
+      </div>
+
+      <!-- Custom play/pause button -->
+      <div class="custom-controls">
+        <button id="playPauseBtn">Pause</button>
+      </div>
+    </div>
+
+    <script>
+      // Get elements
+      const video = document.getElementById('myVideo')
+      const volumeSlider = document.getElementById('volume')
+      const volumeValue = document.getElementById('volumeValue')
+      const playPauseBtn = document.getElementById('playPauseBtn')
+      
+      // Update volume when slider is changed
+      volumeSlider.addEventListener('input', function () {
+        // Set video volume (0 to 1)
+        video.volume = this.value
+      
+        // Update displayed volume percentage
+        volumeValue.textContent = Math.round(this.value * 100) + '%'
+      })
+      
+      // Toggle play/pause
+      playPauseBtn.addEventListener('click', function () {
+        if (video.paused) {
+          video.play()
+          playPauseBtn.textContent = 'Pause'
+        } else {
+          video.pause()
+          playPauseBtn.textContent = 'Play'
+        }
+      })
+      
+      // Update button text when video is played or paused
+      video.addEventListener('play', function () {
+        playPauseBtn.textContent = 'Pause'
+      })
+      
+      video.addEventListener('pause', function () {
+        playPauseBtn.textContent = 'Play'
+      })
+    </script>
+  </body>
+</html>
